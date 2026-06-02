@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Briefing Estratégico Visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --escuro:#261f1e;        /* texto / preto suave */
+    --taupe:#ad9c8c;         /* cor principal */
+    --taupe-claro:#bbb1a2;   /* secundária */
+    --oliva:#736c5c;         /* detalhe */
+    --areia:#e2ded4;         /* fundo claro */
+    --offwhite:#f5f2ec;
+    --ouro:#b08d57;          /* dourado/caramelo discreto */
+    --linha:#e6e0d6;
+    --sombra:0 18px 50px rgba(38,31,30,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Jost',sans-serif;
+    color:var(--escuro);
+    background:var(--offwhite);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:24px 20px 80px}
+
+  /* HERO */
+  .hero{
+    background:linear-gradient(150deg,#2c2421 0%,#3a302b 55%,#4a3f37 100%);
+    border-radius:26px;
+    padding:56px 36px;
+    text-align:center;
+    color:var(--areia);
+    box-shadow:var(--sombra);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 70% 20%,rgba(176,141,87,.25),transparent 60%);
+  }
+  .hero .kicker{
+    font-size:12px;letter-spacing:4px;text-transform:uppercase;
+    color:var(--ouro);position:relative;z-index:1;margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;font-size:46px;line-height:1.05;
+    position:relative;z-index:1;letter-spacing:.5px;
+  }
+  .hero p{
+    position:relative;z-index:1;margin:20px auto 0;max-width:460px;
+    font-weight:300;font-size:16px;color:#d8d1c6;
+  }
+  .hero .start{
+    margin-top:34px;position:relative;z-index:1;
+    background:var(--areia);color:var(--escuro);border:none;
+    padding:15px 42px;border-radius:40px;font-family:'Jost';font-weight:500;
+    font-size:15px;letter-spacing:1px;cursor:pointer;transition:.25s;
+  }
+  .hero .start:hover{transform:translateY(-2px);background:#fff}
+
+  /* PROGRESS */
+  .progress-wrap{margin:34px 4px 8px;display:none}
+  .progress-meta{display:flex;justify-content:space-between;font-size:11px;
+    letter-spacing:2px;text-transform:uppercase;color:var(--oliva);margin-bottom:10px}
+  .bar{height:5px;background:var(--linha);border-radius:10px;overflow:hidden}
+  .bar > span{display:block;height:100%;width:20%;
+    background:linear-gradient(90deg,var(--taupe),var(--ouro));
+    border-radius:10px;transition:width .5s ease}
+
+  /* CARDS / STEPS */
+  .step{display:none;animation:fade .5s ease}
+  .step.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  .sec-head{margin:30px 2px 6px}
+  .sec-head .num{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--ouro)}
+  .sec-head h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;
+    line-height:1.1;margin-top:6px}
+  .sec-head .desc{font-weight:300;color:var(--oliva);margin-top:12px;font-size:15px}
+
+  .card{
+    background:#fff;border:1px solid var(--linha);border-radius:20px;
+    padding:26px 24px;margin-top:20px;box-shadow:var(--sombra);
+  }
+  .q{margin-bottom:26px}
+  .q:last-child{margin-bottom:4px}
+  .q > label.qlabel{display:block;font-weight:500;font-size:16px;margin-bottom:4px}
+  .q .hint{font-size:13px;color:var(--oliva);font-weight:300;margin-bottom:12px}
+
+  input[type=text],input[type=number],textarea,select{
+    width:100%;font-family:'Jost';font-size:15px;color:var(--escuro);
+    background:var(--offwhite);border:1px solid var(--linha);
+    border-radius:12px;padding:13px 15px;transition:.2s;
+  }
+  textarea{min-height:90px;resize:vertical}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--taupe);
+    background:#fff;box-shadow:0 0 0 3px rgba(173,156,140,.18)}
+
+  /* checkbox & radio chips */
+  .opts{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px}
+  .opts label{
+    position:relative;cursor:pointer;font-size:14px;font-weight:400;
+    padding:10px 16px;border:1px solid var(--linha);border-radius:30px;
+    background:var(--offwhite);transition:.18s;user-select:none;
+  }
+  .opts input{position:absolute;opacity:0;inset:0;cursor:pointer}
+  .opts label:hover{border-color:var(--taupe)}
+  .opts input:checked + span{color:#fff}
+  .opts label:has(input:checked){background:var(--oliva);border-color:var(--oliva);color:#fff}
+
+  .pill-note{font-size:12px;color:var(--ouro);margin-top:8px;display:block}
+
+  /* uploads */
+  .upload{
+    border:1.5px dashed var(--taupe);border-radius:16px;background:var(--offwhite);
+    padding:22px;text-align:center;cursor:pointer;transition:.2s;margin-top:6px;
+  }
+  .upload:hover{background:#fff;border-color:var(--ouro)}
+  .upload .ic{font-size:26px}
+  .upload .t{font-weight:500;margin-top:6px}
+  .upload .s{font-size:12px;color:var(--oliva);margin-top:3px}
+  .upload input{display:none}
+  .filelist{font-size:12px;color:var(--oliva);margin-top:8px;text-align:left}
+
+  /* nav */
+  .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
+  .btn{font-family:'Jost';font-weight:500;font-size:15px;letter-spacing:.5px;
+    border-radius:40px;padding:14px 34px;cursor:pointer;border:none;transition:.22s}
+  .btn-back{background:transparent;border:1px solid var(--taupe);color:var(--oliva)}
+  .btn-back:hover{background:var(--areia)}
+  .btn-next{background:var(--escuro);color:var(--areia);margin-left:auto}
+  .btn-next:hover{background:#3a302b;transform:translateY(-2px)}
+  .btn-send{background:linear-gradient(90deg,var(--oliva),var(--ouro));color:#fff;margin-left:auto}
+  .btn-send:hover{transform:translateY(-2px)}
+
+  /* confirmation */
+  #done{display:none;text-align:center;padding:70px 30px}
+  #done .check{width:72px;height:72px;border-radius:50%;margin:0 auto 24px;
+    background:linear-gradient(135deg,var(--oliva),var(--ouro));color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:34px}
+  #done h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600}
+  #done p{color:var(--oliva);font-weight:300;max-width:420px;margin:14px auto 0}
+  .sending{display:none;text-align:center;padding:60px 20px;color:var(--oliva)}
+  .spin{width:42px;height:42px;border:3px solid var(--linha);border-top-color:var(--ouro);
+    border-radius:50%;margin:0 auto 18px;animation:rot 1s linear infinite}
+  @keyframes rot{to{transform:rotate(360deg)}}
+
+  @media(max-width:560px){
+    .hero{padding:44px 24px}.hero h1{font-size:36px}
+    .sec-head h2{font-size:28px}.card{padding:22px 18px}
+    .btn{padding:13px 26px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div id="hero" class="hero">
+    <div class="kicker">Jéssica Marques Studio</div>
+    <h1>Briefing Estratégico Visual</h1>
+    <p>Antes de criar suas imagens, vamos entender sua marca, sua presença, seu estilo e a percepção que você deseja construir.</p>
+    <button class="start" onclick="begin()">Iniciar briefing</button>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progress">
+    <div class="progress-meta"><span id="stepName">Posicionamento</span><span id="stepCount">Etapa 1 de 5</span></div>
+    <div class="bar"><span id="barFill"></span></div>
+  </div>
+
+  <form id="briefing" onsubmit="return false">
+
+  <!-- ETAPA 1 -->
+  <section class="step" data-step="1">
+    <div class="sec-head">
+      <div class="num">01 — Identidade</div>
+      <h2>Posicionamento</h2>
+      <p class="desc">As imagens não servem apenas para “ficar bonitas”. Elas constroem uma percepção sobre você e sobre sua marca. Vamos entender o que a sua imagem precisa comunicar.</p>
+    </div>
+    <div class="card">
+      <div class="q"><label class="qlabel">Nome completo</label><input type="text" name="nome" required></div>
+      <div class="q"><label class="qlabel">Seu nicho de atuação</label><input type="text" name="nicho" placeholder="Ex: mentora de finanças, advogada, esteticista..."></div>
+      <div class="q"><label class="qlabel">@ do seu Instagram</label><input type="text" name="instagram" placeholder="@seuperfil"></div>
+      <div class="q">
+        <label class="qlabel">Estágio atual da sua marca</label>
+        <div class="opts" data-single>
+          <label><input type="radio" name="estagio" value="Construindo do zero"><span>Construindo do zero</span></label>
+          <label><input type="radio" name="estagio" value="Rebranding / mudança de fase"><span>Rebranding / mudança de fase</span></label>
+          <label><input type="radio" name="estagio" value="Consolidação"><span>Consolidação</span></label>
+          <label><input type="radio" name="estagio" value="Lançamento"><span>Lançamento</span></label>
+        </div>
+      </div>
+      <div class="q">
+        <label class="qlabel">O que você quer que as pessoas sintam ao ver suas imagens?</label>
+        <span class="hint">Marque até 3 opções principais.</span>
+        <div class="opts" data-max="3" data-group="sensacoes">
+          <!-- chips injected -->
+        </div>
+        <span class="pill-note" data-counter="sensacoes"></span>
+      </div>
+      <div class="q">
+        <label class="qlabel">Quando alguém olhar para suas imagens, o que você quer que pense ou sinta sobre você?</label>
+        <span class="hint">Responda com profundidade. Ex.: “Quero que sintam que sou uma profissional segura, refinada, mas acessível.”</span>
+        <textarea name="objetivo_visual"></textarea>
+      </div>
+      <div class="q">
+        <label class="qlabel">Como você NÃO quer ser percebida nas imagens?</label>
+        <div class="opts" data-group="nao_percebida"></div>
+      </div>
+      <div class="q">
+        <label class="qlabel">Qual frase mais combina com a imagem que você quer construir?</label>
+        <div class="opts" data-single data-group="frase"></div>
+      </div>
+    </div>
+    <div class="nav"><button type="button" class="btn btn-next" onclick="next(1)">Próximo →</button></div>
+  </section>
+
+  <!-- ETAPA 2 -->
+  <section class="step" data-step="2">
+    <div class="sec-head">
+      <div class="num">02 — Corpo e presença</div>
+      <h2>Você real</h2>
+      <p class="desc">Essa parte garante que as imagens respeitem sua aparência real, seus traços e sua presença natural.</p>
+    </div>
+    <div class="card">
+      <div class="q" style="display:flex;gap:14px;flex-wrap:wrap">
+        <div style="flex:1;min-width:140px"><label class="qlabel">Altura</label><input type="text" name="altura" placeholder="Ex: 1,65 m"></div>
+        <div style="flex:1;min-width:140px"><label class="qlabel">Peso aproximado</label><input type="text" name="peso" placeholder="Ex: 62 kg"></div>
+      </div>
+      <div class="q">
+        <label class="qlabel">Como você descreveria seu corpo hoje?</label>
+        <div class="opts" data-group="corpo"></div>
+      </div>
+      <div class="q">
+        <label class="qlabel">Qual seu tom de pele?</label>
+        <div class="opts" data-single data-group="tom_pele"></div>
+      </div>
+      <div class="q">
+        <label class="qlabel">Como é seu cabelo atualmente?</label>
+        <span class="hint">Comprimento, textura e cor.</span>
+        <div class="opts" data-group="cabelo"></div>
+        <input type="text" name="cabelo_cor" placeholder="Cor do cabelo" style="margin-top:10px">
+      </div>
+      <div class="q">
+        <label class="qlabel">Como você descreveria seus traços faciais?</label>
+        <span class="hint">Ex.: rosto oval, bochechas cheias, olhos puxadinhos, boca marcada, sobrancelha forte, sorriso largo.</span>
+        <textarea name="tracos_faciais"></textarea>
+      </div>
+      <div class="q">
+        <label class="qlabel">O que você mais gosta em você e quer valorizar nas imagens?</label>
+        <div class="opts" data-group="valorizar"></div>
+      </div>
+      <div class="q">
+        <label class="qlabel">O que você NÃO quer que seja alterado nas imagens?</label>
+        <span class="hint">Muito importante para a imagem parecer realmente você. Ex.: não afinar o rosto, não mudar o corpo, não clarear a pele, não mudar o cabelo.</span>
+        <textarea name="nao_alterar"></textarea>
+      </div>
+    </div>
+    <div class="nav">
+      <button type="button" class="btn btn-back" onclick="prev(2)">← Voltar</button>
+      <button type="button" class="btn btn-next" onclick="next(2)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- ETAPA 3 -->
+  <section class="step" data-step="3">
+    <div class="sec-head">
+      <div class="num">03 — Look e estética</div>
+      <h2>Universo visual</h2>
+      <p class="desc">Essa etapa define a estética do ensaio: roupas, acessórios, calçados, cores e referências. A ideia não é copiar ninguém, mas entender qual direção faz sentido para a sua imagem.</p>
+    </div>
+    <div class="card">
+      <div class="q"><label class="qlabel">Quais tons você gosta ou gostaria de usar?</label><div class="opts" data-group="tons"></div></div>
+      <div class="q"><label class="qlabel">Que tipo de roupa combina mais com você e sua marca?</label><div class="opts" data-group="looks"></div></div>
+      <div class="q"><label class="qlabel">Existe alguma cor, roupa ou estilo que você NÃO quer usar?</label>
+        <span class="hint">Ex.: roupa muito justa, decote, cores muito fortes, formal demais.</span>
+        <textarea name="evitar_roupa"></textarea></div>
+      <div class="q"><label class="qlabel">Acessórios que você usa ou gostaria de usar</label><div class="opts" data-group="acessorios"></div></div>
+      <div class="q"><label class="qlabel">Calçados que combinam com sua imagem</label><div class="opts" data-group="calcados"></div></div>
+      <div class="q"><label class="qlabel">Existe algum acessório, calçado ou roupa que você NÃO gosta?</label>
+        <textarea name="nao_gosta_acessorio" placeholder="Ex: salto muito alto, acessórios chamativos, brilho..."></textarea></div>
+      <div class="q"><label class="qlabel">Referências de estilo que você admira</label>
+        <span class="hint">Pessoa, marca, influenciadora ou estética. Ex.: “quiet luxury”, fashion editorial, natural e acolhedor.</span>
+        <textarea name="referencias_estilo"></textarea></div>
+      <div class="q"><label class="qlabel">Como você definiria seu estilo ideal para esse ensaio?</label><div class="opts" data-group="estilo_ideal"></div></div>
+    </div>
+    <div class="nav">
+      <button type="button" class="btn btn-back" onclick="prev(3)">← Voltar</button>
+      <button type="button" class="btn btn-next" onclick="next(3)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- ETAPA 4 -->
+  <section class="step" data-step="4">
+    <div class="sec-head">
+      <div class="num">04 — Percepção</div>
+      <h2>A imagem na mente do público</h2>
+      <p class="desc">Mais do que fotos bonitas, o objetivo é criar percepção de valor, confiança e posicionamento. Vamos entender qual sensação suas imagens precisam causar.</p>
+    </div>
+    <div class="card">
+      <div class="q">
+        <label class="qlabel">O que o público precisa sentir ao ver suas imagens?</label>
+        <span class="hint">Marque até 3 opções principais.</span>
+        <div class="opts" data-max="3" data-group="publico_sentir"></div>
+        <span class="pill-note" data-counter="publico_sentir"></span>
+      </div>
+      <div class="q"><label class="qlabel">Qual é o objetivo principal das fotos?</label><div class="opts" data-group="objetivo_fotos"></div></div>
+      <div class="q"><label class="qlabel">O que você NÃO quer transmitir nas imagens?</label><div class="opts" data-group="nao_transmitir"></div></div>
+      <div class="q"><label class="qlabel">Existe alguma imagem ou percepção que hoje NÃO representa mais você?</label>
+        <span class="hint">Ex.: “Hoje minhas fotos parecem simples demais.” “Quero parecer mais premium sem perder minha naturalidade.”</span>
+        <textarea name="nao_representa"></textarea></div>
+      <div class="q">
+        <label class="qlabel">Envie 3 referências do patamar visual desejado</label>
+        <span class="hint">Links de Pinterest, perfil, campanha ou moodboard — e o que você gosta em cada uma. As referências não serão copiadas; servem para entender o nível visual desejado.</span>
+        <input type="text" name="ref1" placeholder="Referência 1 (link)" style="margin-bottom:8px">
+        <input type="text" name="ref1_pq" placeholder="O que você gosta nela?" style="margin-bottom:16px">
+        <input type="text" name="ref2" placeholder="Referência 2 (link)" style="margin-bottom:8px">
+        <input type="text" name="ref2_pq" placeholder="O que você gosta nela?" style="margin-bottom:16px">
+        <input type="text" name="ref3" placeholder="Referência 3 (link)" style="margin-bottom:8px">
+        <input type="text" name="ref3_pq" placeholder="O que você gosta nela?">
+      </div>
+    </div>
+    <div class="nav">
+      <button type="button" class="btn btn-back" onclick="prev(4)">← Voltar</button>
+      <button type="button" class="btn btn-next" onclick="next(4)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- ETAPA 5 -->
+  <section class="step" data-step="5">
+    <div class="sec-head">
+      <div class="num">05 — Suas fotos</div>
+      <h2>Material de base</h2>
+      <p class="desc">Essas fotos são a base para criar suas imagens. Envie fotos sem efeito, naturais e de boa qualidade — de preferência já maquiada e com o cabelo do jeito que você usa e gosta. Se não tiver com maquiagem, envie como prefere ser vista (rosto limpo ou maquiagem casual, sem muita informação).</p>
+    </div>
+    <div class="card">
+      <div class="q">
+        <label class="qlabel">Fotos pessoais — total de 6 fotos</label>
+        <span class="hint">1 sorrindo de frente · 1 rosto de frente · 1 lateral esquerda · 1 lateral direita · 1 com sorriso sutil ou “carão” · 1 de corpo inteiro.</span>
+        <label class="upload" for="fotos">
+          <div class="ic">⬆</div><div class="t">Enviar minhas 6 fotos</div>
+          <div class="s">JPG ou PNG · arraste ou toque para selecionar</div>
+          <input id="fotos" type="file" name="fotos" accept="image/*" multiple>
+        </label>
+        <div class="filelist" id="fotosList"></div>
+      </div>
+      <div class="q">
+        <label class="qlabel">Referências visuais (opcional)</label>
+        <span class="hint">Fotos, poses, paleta, cenário, luz ou prints de perfis que você admira.</span>
+        <label class="upload" for="refs">
+          <div class="ic">⬆</div><div class="t">Enviar referências</div>
+          <div class="s">Imagens ou prints</div>
+          <input id="refs" type="file" name="referencias" accept="image/*" multiple>
+        </label>
+        <div class="filelist" id="refsList"></div>
+      </div>
+      <div class="q">
+        <label class="qlabel">Observações finais (opcional)</label>
+        <textarea name="observacoes" placeholder="Algo mais que eu precise saber para criar suas imagens?"></textarea>
+      </div>
+    </div>
+    <div class="nav">
+      <button type="button" class="btn btn-back" onclick="prev(5)">← Voltar</button>
+      <button type="button" class="btn btn-send" onclick="enviar()">Enviar briefing ✦</button>
+    </div>
+  </section>
+
+  </form>
+
+  <!-- SENDING -->
+  <div class="sending" id="sending"><div class="spin"></div><p>Enviando seu briefing e gerando o diagnóstico estratégico...</p></div>
+
+  <!-- DONE -->
+  <div id="done">
+    <div class="check">✓</div>
+    <h2>Briefing recebido</h2>
+    <p>Obrigada! Suas respostas chegaram com sucesso. A partir daqui, eu cuido da direção visual da sua marca. Em breve entro em contato.</p>
+  </div>
+</div>
+
+<script>
+  /* ====== CONFIG: troque pela URL do seu servidor no Render ====== */
+  const WEBHOOK_URL = "https://jm-briefing-server.onrender.com/webhook";
+
+  /* ====== opções dos chips ====== */
+  const OP = {
+    sensacoes:["Autoridade","Confiança","Sofisticação","Proximidade","Acolhimento","Presença","Atitude","Delicadeza","Criatividade","Profissionalismo","Desejo / valor percebido","Autenticidade","Elegância","Leveza","Segurança","Força","Naturalidade","Exclusividade","Modernidade"],
+    nao_percebida:["Fria","Forçada","Genérica","Infantilizada","Sensual demais","Séria demais","Artificial","Inacessível","Simples demais","Formal demais","Luxuosa demais","Básica","Muito produzida","Muito espontânea"],
+    frase:["Quero ser vista como uma profissional de confiança.","Quero parecer mais premium e sofisticada.","Quero transmitir autoridade sem perder a leveza.","Quero parecer mais próxima, humana e acessível.","Quero uma imagem forte, marcante e posicionada.","Quero uma imagem delicada, feminina e elegante.","Quero parecer criativa, moderna e diferente.","Quero uma imagem natural, real e sem exageros.","Quero parecer referência no meu nicho."],
+    corpo:["Magra","Corpo normal/real","Midsize","Plus size","Curvilínea","Mais reta","Quadril mais largo","Ombros mais largos","Seios mais evidentes","Barriga mais aparente","Braços mais cheinhos"],
+    tom_pele:["Pele clara","Pele morena","Pele bronzeada","Pele oliva","Pele negra"],
+    cabelo:["Curto","Médio","Longo","Muito longo","Liso","Ondulado","Cacheado","Crespo"],
+    valorizar:["Rosto","Sorriso","Olhar","Cabelo","Traços ou sinais","Corpo","Mãos","Postura","Estilo pessoal"],
+    tons:["Tons neutros","Off-white","Bege","Marrom","Preto","Branco","Cinza","Nude","Tons terrosos","Rosa claro","Verde","Azul","Cores vibrantes"],
+    looks:["Alfaiataria elegante","Blazer","Camisa social","Vestido","Casual chic","Minimalista","Fashion/editorial","Criativo","Feminino e delicado","Confortável e natural","Poderoso/marcante"],
+    acessorios:["Brincos","Colares","Anéis","Óculos","Relógio","Bolsa","Lenço","Dourados","Prateados","Poucos acessórios","Sem acessórios"],
+    calcados:["Scarpin","Sandália de salto","Slingback","Mule","Bota","Tênis casual","Sapato baixo elegante","Calçado confortável","Calçado não aparece"],
+    estilo_ideal:["Minimalista","Sofisticado","Natural","Elegante","Moderno","Criativo","Fashion/editorial","Feminino","Delicado","Forte/marcante","Casual chic","Profissional","Acolhedor","Luxuoso","Leve"],
+    publico_sentir:["Confiança","Autoridade","Proximidade","Sofisticação","Acolhimento","Presença","Segurança","Leveza","Elegância","Criatividade","Desejo","Inspiração","Profissionalismo","Exclusividade","Naturalidade","Força","Delicadeza","Modernidade"],
+    objetivo_fotos:["Fortalecer minha marca pessoal","Me posicionar como referência","Transmitir mais autoridade","Parecer mais profissional","Criar imagem mais premium","Fotos para conteúdos e carrosséis","Lançamentos, aulas, mentorias","Atualizar minha presença visual","Gerar mais conexão","Mostrar bastidor/proximidade","Site / página de vendas"],
+    nao_transmitir:["Frieza","Arrogância","Sensualidade excessiva","Infantilidade","Amadorismo","Exagero","Artificialidade","Aparência genérica","Seriedade demais","Formalidade demais","Simplicidade demais","Luxo distante da realidade","Timidez","Insegurança","Imagem muito produzida","Imagem muito básica"]
+  };
+  const stepNames = ["Posicionamento","Corpo e presença","Look e estética","Percepção","Suas fotos"];
+
+  /* build chips */
+  document.querySelectorAll('.opts[data-group]').forEach(box=>{
+    const g=box.dataset.group, single=box.hasAttribute('data-single');
+    (OP[g]||[]).forEach(v=>{
+      const id=g+'_'+Math.random().toString(36).slice(2,7);
+      const l=document.createElement('label');
+      l.innerHTML=`<input type="${single?'radio':'checkbox'}" name="${g}" value="${v}" id="${id}"><span>${v}</span>`;
+      box.appendChild(l);
+    });
+  });
+
+  /* max-select logic + counters */
+  document.querySelectorAll('.opts[data-max]').forEach(box=>{
+    const max=+box.dataset.max, g=box.dataset.group;
+    const counter=document.querySelector(`[data-counter="${g}"]`);
+    box.addEventListener('change',()=>{
+      const checked=box.querySelectorAll('input:checked');
+      if(checked.length>max){ event.target.checked=false; }
+      const n=box.querySelectorAll('input:checked').length;
+      if(counter) counter.textContent=`${n} de ${max} selecionadas`;
+    });
+  });
+
+  /* file lists */
+  function bindFiles(inputId,listId){
+    document.getElementById(inputId).addEventListener('change',e=>{
+      const names=[...e.target.files].map(f=>'• '+f.name).join('<br>');
+      document.getElementById(listId).innerHTML=names||'';
+    });
+  }
+  bindFiles('fotos','fotosList'); bindFiles('refs','refsList');
+
+  /* navigation */
+  let cur=1; const TOTAL=5;
+  function show(n){
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+    document.querySelector(`.step[data-step="${n}"]`).classList.add('active');
+    document.getElementById('barFill').style.width=(n/TOTAL*100)+'%';
+    document.getElementById('stepName').textContent=stepNames[n-1];
+    document.getElementById('stepCount').textContent=`Etapa ${n} de ${TOTAL}`;
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function begin(){
+    document.getElementById('hero').style.display='none';
+    document.getElementById('progress').style.display='block';
+    show(1);
+  }
+  function next(n){
+    if(n===1){const nome=document.querySelector('[name=nome]').value.trim();
+      if(!nome){alert('Por favor, preencha seu nome para continuar.');return;}}
+    cur=n+1; show(cur);
+  }
+  function prev(n){cur=n-1; show(cur);}
+
+  /* collect + send */
+  function collect(){
+    const form=document.getElementById('briefing');
+    const data={};
+    // simple text fields
+    form.querySelectorAll('input[type=text],input[type=number],textarea').forEach(el=>{
+      if(el.name) data[el.name]=el.value.trim();
+    });
+    // single (radio)
+    ['estagio','tom_pele','frase'].forEach(g=>{
+      const sel=form.querySelector(`input[name=${g}]:checked`);
+      if(sel) data[g]=sel.value;
+    });
+    // multi (checkbox)
+    ['sensacoes','nao_percebida','corpo','cabelo','valorizar','tons','looks','acessorios','calcados','estilo_ideal','publico_sentir','objetivo_fotos','nao_transmitir'].forEach(g=>{
+      const vals=[...form.querySelectorAll(`input[name=${g}]:checked`)].map(i=>i.value);
+      if(vals.length) data[g]=vals;
+    });
+    return data;
+  }
+
+  async function enviar(){
+    const nome=document.querySelector('[name=nome]').value.trim();
+    if(!nome){alert('Por favor, preencha seu nome.');cur=1;show(1);return;}
+    document.getElementById('briefing').style.display='none';
+    document.getElementById('progress').style.display='none';
+    document.getElementById('sending').style.display='block';
+
+    const fd=new FormData();
+    fd.append('dados', JSON.stringify(collect()));
+    [...document.getElementById('fotos').files].forEach(f=>fd.append('fotos',f));
+    [...document.getElementById('refs').files].forEach(f=>fd.append('referencias',f));
+
+    try{
+      const r=await fetch(WEBHOOK_URL,{method:'POST',body:fd});
+      if(!r.ok) throw new Error('status '+r.status);
+    }catch(err){
+      document.getElementById('sending').style.display='none';
+      alert('Não consegui enviar agora ('+err.message+'). Verifique sua conexão e tente novamente.');
+      document.getElementById('briefing').style.display='block';
+      document.getElementById('progress').style.display='block';
+      return;
+    }
+    document.getElementById('sending').style.display='none';
+    document.getElementById('done').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
