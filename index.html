@@ -128,6 +128,30 @@
   .upload input{display:none}
   .filelist{font-size:12px;color:var(--oliva);margin-top:8px;text-align:left}
 
+  /* lookbook / galeria de estilos */
+  #lookbook{margin-top:6px}
+  .lb-fam{margin-top:22px}
+  .lb-fam:first-child{margin-top:6px}
+  .lb-fam .fam-t{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;
+    color:var(--escuro);border-bottom:1px solid var(--linha);padding-bottom:6px}
+  .lb-fam .fam-s{font-size:12px;color:var(--ouro);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+  .lb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .lb-cell{position:relative;cursor:pointer;overflow:hidden;border:1px solid var(--linha);border-radius:3px}
+  .lb-cell img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:.3s}
+  .lb-cell:hover img{transform:scale(1.04)}
+  .lb-cell .cap{position:absolute;left:0;right:0;bottom:0;font-size:10.5px;color:#fff;
+    padding:14px 7px 6px;background:linear-gradient(transparent,rgba(38,31,30,.78));line-height:1.25}
+  @media(max-width:560px){.lb-grid{grid-template-columns:repeat(2,1fr)}}
+
+  /* lightbox */
+  #lightbox{position:fixed;inset:0;background:rgba(38,31,30,.92);z-index:999;
+    display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  #lightbox.open{display:flex}
+  #lightbox img{max-width:92%;max-height:82%;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  #lightbox .lb-name{position:absolute;bottom:34px;left:0;right:0;text-align:center;
+    color:var(--areia);font-family:'Cormorant Garamond',serif;font-size:22px}
+  #lightbox .lb-x{position:absolute;top:20px;right:26px;color:#fff;font-size:30px;cursor:pointer;line-height:1}
+
   /* nav */
   .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
   .btn{font-family:'Jost';font-weight:500;font-size:15px;letter-spacing:.5px;
@@ -277,6 +301,11 @@
       <p class="desc">Essa etapa define a estética do ensaio: roupas, acessórios, calçados, cores e referências. A ideia não é copiar ninguém, mas entender qual direção faz sentido para a sua imagem.</p>
     </div>
     <div class="card">
+      <div class="q">
+        <label class="qlabel">Galeria de estilos</label>
+        <span class="hint">Direções estéticas possíveis para a sua marca, organizadas por sensação. Toque para ampliar. Use como referência ao responder abaixo — não para copiar, mas para identificar o que combina com você.</span>
+        <div id="lookbook"></div>
+      </div>
       <div class="q"><label class="qlabel">Quais tons você gosta ou gostaria de usar?</label><div class="opts" data-group="tons"></div></div>
       <div class="q"><label class="qlabel">Que tipo de roupa combina mais com você e sua marca?</label><div class="opts" data-group="looks"></div></div>
       <div class="q"><label class="qlabel">Existe alguma cor, roupa ou estilo que você NÃO quer usar?</label>
@@ -385,6 +414,13 @@
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLb()">
+  <span class="lb-x">×</span>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-name" id="lbName"></div>
+</div>
+
 <script>
   /* ====== CONFIG: troque pela URL do seu servidor no Render ====== */
   const WEBHOOK_URL = "https://jm-briefing-server.onrender.com/webhook";
@@ -419,6 +455,38 @@
       box.appendChild(l);
     });
   });
+
+  /* ===== galeria de estilos (lookbook) ===== */
+  const LB_LABELS = {1:"Sofisticação neutra",2:"Colete & alfaiataria",3:"Ombro único moderno",4:"Conforto premium",5:"Poder suave",6:"Criativa refinada",7:"Especialista moderna",8:"Presença estratégica",9:"Minimalismo elegante",10:"Natural sofisticado",11:"Presença criativa",12:"Elegância analítica",13:"Minimalismo executivo",14:"Autoridade sofisticada",15:"Inteligência clássica",16:"Autoridade elegante",17:"Conexão casual chic",18:"Acolhimento sofisticado",19:"Delicadeza premium",20:"Poder marcante",21:"Liderança suave",22:"Sofisticação acessível",23:"Feminilidade estratégica",24:"Elegância executiva",25:"Fashion inteligente",26:"Impacto editorial",27:"Feminilidade refinada",28:"Repertório sofisticado",29:"Leveza manteiga",30:"Modernidade azul-pó",31:"Elegância sálvia",32:"Criatividade lavanda",33:"Impacto oliva escuro",34:"Conexão terracota",35:"Alfaiataria com saia",36:"Preto minimalista",37:"Bordô assimétrico",38:"Monocromático oliva",39:"Saia lápis reinventada",40:"Camisa oversized & saia slip",41:"Linho natural & saia midi",42:"Preto fluido acetinado",43:"Couro leve & saia",44:"Linho saia envelope",45:"Vestido preto fluido",46:"Saia midi & camisa acetinada",47:"Slip dress & blazer leve",48:"Colete & pantalona terracota"};
+  const LB_FAMS = [
+    {t:"Autoridade & Presença", s:"Poder, posicionamento, referência", ids:[5,8,14,16,20,21,26,33]},
+    {t:"Sofisticação & Elegância", s:"Refinamento, valor percebido", ids:[1,10,12,18,22,24,28,31]},
+    {t:"Minimalismo & Clean", s:"Quiet luxury, essencial", ids:[2,9,13,15,36,45]},
+    {t:"Feminino & Delicado", s:"Leveza, suavidade, elegância", ids:[19,23,27,29]},
+    {t:"Criativo & Editorial", s:"Atitude, moderno, diferente", ids:[3,6,11,25,30,32]},
+    {t:"Natural & Casual chic", s:"Real, próxima, acolhedora", ids:[4,7,17,34,40,41]},
+    {t:"Saias & Peças statement", s:"Alfaiataria e silhuetas marcantes", ids:[35,37,38,39,42,43,44,46,47,48]}
+  ];
+  (function buildLookbook(){
+    const root=document.getElementById('lookbook'); if(!root) return;
+    LB_FAMS.forEach(fam=>{
+      const wrap=document.createElement('div'); wrap.className='lb-fam';
+      wrap.innerHTML=`<div class="fam-t">${fam.t}</div><div class="fam-s">${fam.s}</div>`;
+      const grid=document.createElement('div'); grid.className='lb-grid';
+      fam.ids.forEach(id=>{
+        const n=String(id).padStart(2,'0'); const label=LB_LABELS[id]||'';
+        const cell=document.createElement('div'); cell.className='lb-cell';
+        cell.innerHTML=`<img loading="lazy" src="look${n}.jpg" alt="${label}"><div class="cap">${label}</div>`;
+        cell.onclick=()=>openLb(`look${n}.jpg`,label);
+        grid.appendChild(cell);
+      });
+      wrap.appendChild(grid); root.appendChild(wrap);
+    });
+  })();
+  function openLb(src,name){const lb=document.getElementById('lightbox');
+    document.getElementById('lbImg').src=src;document.getElementById('lbName').textContent=name;
+    lb.classList.add('open');}
+  function closeLb(){document.getElementById('lightbox').classList.remove('open');}
 
   /* max-select logic + counters */
   document.querySelectorAll('.opts[data-max]').forEach(box=>{
