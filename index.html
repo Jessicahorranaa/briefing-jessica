@@ -65,6 +65,8 @@
   .opts input{position:absolute;opacity:0;inset:0;cursor:pointer}
   .opts label:hover{border-color:var(--taupe)}
   .opts label:has(input:checked){background:var(--oliva);border-color:var(--oliva);color:#fff}
+  .opts-stack{flex-direction:column;gap:8px}
+  .opts-stack label{width:100%}
   .pill-note{font-size:12px;color:var(--ouro);margin-top:8px;display:block}
 
   /* uploads */
@@ -86,7 +88,8 @@
   .lb-cell{position:relative;cursor:pointer;overflow:hidden;border:1px solid var(--linha);border-radius:3px}
   .lb-cell img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:.3s}
   .lb-cell:hover img{transform:scale(1.04)}
-  .lb-cell .cap{position:absolute;left:0;right:0;bottom:0;font-size:10px;color:#fff;padding:14px 6px 5px;background:linear-gradient(transparent,rgba(38,31,30,.8));line-height:1.2}
+  .lb-cell.sel{border-color:var(--oliva);box-shadow:0 0 0 2px var(--oliva)}
+  .lb-cell.sel::after{content:"✓";position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:var(--oliva);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center}
   @media(max-width:560px){.lb-grid{grid-template-columns:repeat(2,1fr)}}
 
   /* lightbox */
@@ -157,12 +160,6 @@
         <div class="opts" data-single><label><input type="radio" name="estagio" value="Construindo do zero"><span>Construindo do zero</span></label><label><input type="radio" name="estagio" value="Rebranding / mudança de fase"><span>Rebranding / mudança de fase</span></label><label><input type="radio" name="estagio" value="Consolidação"><span>Consolidação</span></label><label><input type="radio" name="estagio" value="Lançamento"><span>Lançamento</span></label></div>
       </div>
       <div class="q">
-        <label class="qlabel">O que você quer que as pessoas sintam ao ver suas imagens?</label>
-        <span class="hint">Marque até 3 — as sensações mais importantes para a sua marca.</span>
-        <div class="opts" data-max="3" data-group="sensacoes"></div>
-        <span class="pill-note" data-counter="sensacoes"></span>
-      </div>
-      <div class="q">
         <label class="qlabel">Quando alguém olhar para você, o que você quer que pense ou sinta?</label>
         <span class="hint">Responda com profundidade. Ex.: “Quero que sintam que sou segura, refinada, mas acessível.”</span>
         <textarea name="objetivo_visual"></textarea>
@@ -173,7 +170,7 @@
       </div>
       <div class="q">
         <label class="qlabel">Qual frase mais combina com a imagem que você quer construir?</label>
-        <div class="opts" data-single data-group="frase"></div>
+        <div class="opts opts-stack" data-single data-group="frase"></div>
       </div>
       <div class="q">
         <label class="qlabel">Qual o objetivo principal dessas fotos?</label>
@@ -196,7 +193,7 @@
         <div><label class="qlabel">Peso aproximado</label><input type="text" name="peso" placeholder="Ex: 62 kg"></div>
       </div>
       <div class="q"><label class="qlabel">Como você descreveria seu corpo hoje?</label><div class="opts" data-group="corpo"></div></div>
-      <div class="q"><label class="qlabel">Qual seu tom de pele?</label><div class="opts" data-single data-group="tom_pele"></div></div>
+      <div class="q"><label class="qlabel">Qual seu tom de pele?</label><span class="hint">Descreva com suas palavras.</span><textarea name="tom_pele" placeholder="Ex.: pele morena clara de fundo quente, pele negra retinta..."></textarea></div>
       <div class="q"><label class="qlabel">Como é seu cabelo atualmente?</label><span class="hint">Comprimento, textura e cor.</span><div class="opts" data-group="cabelo"></div><input type="text" name="cabelo_cor" placeholder="Cor do cabelo" style="margin-top:10px"></div>
       <div class="q"><label class="qlabel">Como você descreveria seus traços faciais?</label><span class="hint">Ex.: rosto oval, bochechas cheias, olhos puxadinhos, boca marcada, sorriso largo.</span><textarea name="tracos_faciais"></textarea></div>
       <div class="q"><label class="qlabel">O que você mais gosta em você e quer valorizar?</label><div class="opts" data-group="valorizar"></div></div>
@@ -214,8 +211,8 @@
     </div>
     <div class="card">
       <div class="q">
-        <label class="qlabel">Galeria de estilos</label>
-        <span class="hint">Direções possíveis, organizadas por sensação. Toque para ampliar.</span>
+        <label class="qlabel">Qual estilo combina mais com você?</label>
+        <span class="hint">Toque nas imagens que mais combinam com você — pode escolher mais de uma.</span>
         <div id="lookbook"></div>
       </div>
       <div class="q"><label class="qlabel">Quais tons você gosta ou gostaria de usar?</label><div class="opts" data-group="tons"></div><input type="text" name="tons_outro" placeholder="Outra cor que você queira e não está acima (opcional)" style="margin-top:10px"></div>
@@ -310,16 +307,17 @@
   });
 
   /* galeria de estilos — 4 looks por família, curados */
-  const LB_LABELS = {1:"Sofisticação neutra",2:"Colete & alfaiataria",3:"Ombro único moderno",4:"Conforto premium",7:"Especialista moderna",9:"Minimalismo elegante",11:"Presença criativa",12:"Elegância analítica",13:"Minimalismo executivo",14:"Autoridade sofisticada",16:"Autoridade elegante",18:"Acolhimento sofisticado",19:"Delicadeza premium",20:"Poder marcante",22:"Sofisticação acessível",23:"Feminilidade estratégica",27:"Feminilidade refinada",29:"Leveza manteiga",30:"Modernidade azul-pó",31:"Elegância sálvia",32:"Criatividade lavanda",33:"Impacto oliva",34:"Conexão terracota",37:"Bordô assimétrico",38:"Monocromático oliva",41:"Linho natural & saia",42:"Preto acetinado",43:"Couro leve & saia",45:"Vestido preto fluido"};
+  const LB_LABELS = {1:"Sofisticação neutra",2:"Colete & alfaiataria",3:"Ombro único moderno",4:"Conforto premium",7:"Especialista moderna",8:"Presença estratégica",9:"Minimalismo elegante",11:"Presença criativa",12:"Elegância analítica",13:"Minimalismo executivo",14:"Autoridade sofisticada",16:"Autoridade elegante",17:"Conexão casual chic",18:"Acolhimento sofisticado",19:"Delicadeza premium",20:"Poder marcante",22:"Sofisticação acessível",23:"Feminilidade estratégica",26:"Impacto editorial",27:"Feminilidade refinada",29:"Leveza manteiga",30:"Modernidade azul-pó",31:"Elegância sálvia",32:"Criatividade lavanda",33:"Impacto oliva",34:"Conexão terracota",37:"Bordô assimétrico",38:"Monocromático oliva",41:"Linho natural & saia",42:"Preto acetinado",43:"Couro leve & saia",45:"Vestido preto fluido"};
   const LB_FAMS = [
     {t:"Autoridade & Presença", s:"Poder, posicionamento, referência", ids:[1,16,14,33]},
-    {t:"Sofisticação & Elegância", s:"Refinamento, valor percebido", ids:[12,22,18,31]},
-    {t:"Minimalismo & Clean", s:"Quiet luxury, essencial", ids:[2,13,45,9]},
+    {t:"Sofisticação & Elegância", s:"Refinamento, valor percebido", ids:[12,22,18,26]},
+    {t:"Minimalismo & Clean", s:"Quiet luxury, essencial", ids:[2,13,45,8]},
     {t:"Feminino & Delicado", s:"Leveza, suavidade, elegância", ids:[19,23,27,29]},
     {t:"Criativo & Editorial", s:"Atitude, moderno, diferente", ids:[32,30,11,3]},
-    {t:"Natural & Casual chic", s:"Real, próxima, acolhedora", ids:[34,4,41,7]},
+    {t:"Natural & Casual chic", s:"Real, próxima, acolhedora", ids:[34,4,41,17]},
     {t:"Saias & Peças statement", s:"Silhuetas marcantes", ids:[37,38,43,42]}
   ];
+  const selectedLooks = new Set();
   (function(){
     const root=document.getElementById('lookbook'); if(!root) return;
     LB_FAMS.forEach(fam=>{
@@ -330,7 +328,7 @@
         const n=String(id).padStart(2,'0'); const label=LB_LABELS[id]||'';
         const cell=document.createElement('div'); cell.className='lb-cell';
         cell.innerHTML=`<img loading="lazy" src="look${n}.jpg" alt="${label}">`;
-        cell.onclick=()=>openLb(`look${n}.jpg`,label);
+        cell.onclick=()=>{ if(selectedLooks.has(label)){selectedLooks.delete(label);cell.classList.remove('sel');} else {selectedLooks.add(label);cell.classList.add('sel');} };
         grid.appendChild(cell);
       });
       wrap.appendChild(grid); root.appendChild(wrap);
@@ -370,9 +368,9 @@
   function collect(){
     const form=document.getElementById('briefing'); const data={};
     form.querySelectorAll('input[type=text],input[type=tel],input[type=number],textarea').forEach(el=>{if(el.name)data[el.name]=el.value.trim();});
-    ['estagio','tom_pele','frase'].forEach(g=>{const s=form.querySelector(`input[name=${g}]:checked`);if(s)data[g]=s.value;});
-    ['sensacoes','nao_transmitir','objetivo_fotos','corpo','cabelo','valorizar','tons','looks','estilo_ideal','acessorios','calcados'].forEach(g=>{const v=[...form.querySelectorAll(`input[name=${g}]:checked`)].map(i=>i.value);if(v.length)data[g]=v;});
-    if(data.sensacoes) data.publico_sentir=data.sensacoes; /* preenche também a coluna Percepção do público */
+    ['estagio','frase'].forEach(g=>{const s=form.querySelector(`input[name=${g}]:checked`);if(s)data[g]=s.value;});
+    ['nao_transmitir','objetivo_fotos','corpo','cabelo','valorizar','tons','looks','estilo_ideal','acessorios','calcados'].forEach(g=>{const v=[...form.querySelectorAll(`input[name=${g}]:checked`)].map(i=>i.value);if(v.length)data[g]=v;});
+    if(selectedLooks.size) data.estilo_ideal=(data.estilo_ideal||[]).concat([...selectedLooks].map(s=>'Galeria: '+s));
     if(data.tons_outro){ data.tons=(data.tons||[]).concat('Outro: '+data.tons_outro); delete data.tons_outro; }
     return data;
   }
