@@ -232,13 +232,20 @@
 
   </form>
 
-  <div class="sending" id="sending"><div class="spin"></div><p>Enviando seu briefing e gerando o diagnóstico estratégico...</p></div>
+  <div class="sending" id="sending"><div class="spin"></div><p>Enviando seu briefing e gerando o diagnóstico estratégico...<br><span style="font-size:13px">Isso pode levar alguns segundos — não feche a página.</span></p></div>
   <div id="done"><div class="check">✓</div><h2>Briefing recebido</h2><p>Obrigada! Suas respostas chegaram com sucesso. A partir daqui, eu cuido da direção visual da sua marca. Em breve entro em contato.</p></div>
 </div>
 
 <script>
   const WEBHOOK_URL = "https://jm-briefing-server.onrender.com/webhook";
+  const SERVER_BASE = "https://jm-briefing-server.onrender.com/";
   const IMG_V = "8";
+
+  /* acorda o servidor (plano grátis hiberna) assim que a página abre,
+     pra que no momento do envio ele já esteja ativo e rápido */
+  function wakeServer(){ try{ fetch(SERVER_BASE, {mode:'no-cors', cache:'no-store'}); }catch(e){} }
+  wakeServer();
+  setInterval(wakeServer, 240000); /* mantém acordado a cada 4 min enquanto a página está aberta */
 
   const OP = {
     nao_transmitir:["Frieza","Arrogância","Sensualidade excessiva","Infantilidade","Amadorismo","Exagero","Artificialidade","Aparência genérica","Seriedade demais","Formalidade demais","Simplicidade demais","Luxo distante da realidade","Timidez","Insegurança","Muito produzida","Muito básica"],
