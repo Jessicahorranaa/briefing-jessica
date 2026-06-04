@@ -218,7 +218,7 @@
         <span class="hint">Direções possíveis, organizadas por sensação. Toque para ampliar.</span>
         <div id="lookbook"></div>
       </div>
-      <div class="q"><label class="qlabel">Quais tons você gosta ou gostaria de usar?</label><div class="opts" data-group="tons"></div></div>
+      <div class="q"><label class="qlabel">Quais tons você gosta ou gostaria de usar?</label><div class="opts" data-group="tons"></div><input type="text" name="tons_outro" placeholder="Outra cor que você queira e não está acima (opcional)" style="margin-top:10px"></div>
       <div class="q"><label class="qlabel">Que tipo de roupa combina mais com você?</label><div class="opts" data-group="looks"></div></div>
       <div class="q"><label class="qlabel">Como você definiria seu estilo ideal?</label><div class="opts" data-group="estilo_ideal"></div></div>
       <div class="q"><label class="qlabel">Acessórios que combinam com sua imagem</label><div class="opts" data-group="acessorios"></div></div>
@@ -312,7 +312,7 @@
   /* galeria de estilos — 4 looks por família, curados */
   const LB_LABELS = {1:"Sofisticação neutra",2:"Colete & alfaiataria",3:"Ombro único moderno",4:"Conforto premium",7:"Especialista moderna",9:"Minimalismo elegante",11:"Presença criativa",12:"Elegância analítica",13:"Minimalismo executivo",14:"Autoridade sofisticada",16:"Autoridade elegante",18:"Acolhimento sofisticado",19:"Delicadeza premium",20:"Poder marcante",22:"Sofisticação acessível",23:"Feminilidade estratégica",27:"Feminilidade refinada",29:"Leveza manteiga",30:"Modernidade azul-pó",31:"Elegância sálvia",32:"Criatividade lavanda",33:"Impacto oliva",34:"Conexão terracota",37:"Bordô assimétrico",38:"Monocromático oliva",41:"Linho natural & saia",42:"Preto acetinado",43:"Couro leve & saia",45:"Vestido preto fluido"};
   const LB_FAMS = [
-    {t:"Autoridade & Presença", s:"Poder, posicionamento, referência", ids:[20,16,14,33]},
+    {t:"Autoridade & Presença", s:"Poder, posicionamento, referência", ids:[1,16,14,33]},
     {t:"Sofisticação & Elegância", s:"Refinamento, valor percebido", ids:[12,22,18,31]},
     {t:"Minimalismo & Clean", s:"Quiet luxury, essencial", ids:[2,13,45,9]},
     {t:"Feminino & Delicado", s:"Leveza, suavidade, elegância", ids:[19,23,27,29]},
@@ -329,7 +329,7 @@
       fam.ids.forEach(id=>{
         const n=String(id).padStart(2,'0'); const label=LB_LABELS[id]||'';
         const cell=document.createElement('div'); cell.className='lb-cell';
-        cell.innerHTML=`<img loading="lazy" src="look${n}.jpg" alt="${label}"><div class="cap">${label}</div>`;
+        cell.innerHTML=`<img loading="lazy" src="look${n}.jpg" alt="${label}">`;
         cell.onclick=()=>openLb(`look${n}.jpg`,label);
         grid.appendChild(cell);
       });
@@ -373,6 +373,7 @@
     ['estagio','tom_pele','frase'].forEach(g=>{const s=form.querySelector(`input[name=${g}]:checked`);if(s)data[g]=s.value;});
     ['sensacoes','nao_transmitir','objetivo_fotos','corpo','cabelo','valorizar','tons','looks','estilo_ideal','acessorios','calcados'].forEach(g=>{const v=[...form.querySelectorAll(`input[name=${g}]:checked`)].map(i=>i.value);if(v.length)data[g]=v;});
     if(data.sensacoes) data.publico_sentir=data.sensacoes; /* preenche também a coluna Percepção do público */
+    if(data.tons_outro){ data.tons=(data.tons||[]).concat('Outro: '+data.tons_outro); delete data.tons_outro; }
     return data;
   }
 
