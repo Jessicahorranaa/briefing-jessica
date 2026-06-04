@@ -16,29 +16,17 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Jost',sans-serif;color:var(--escuro);background:var(--offwhite);line-height:1.6;-webkit-font-smoothing:antialiased}
   .wrap{max-width:720px;margin:0 auto;padding:24px 20px 80px}
-
-  /* HERO */
-  .hero{
-    background-color:#2c2421;
-    background-image:linear-gradient(rgba(38,31,30,.42),rgba(38,31,30,.64)), url('cover.jpg');
-    background-size:cover;background-position:center;
-    border-radius:4px;padding:88px 40px;text-align:center;color:var(--areia);
-    box-shadow:var(--sombra);position:relative;overflow:hidden;
-  }
+  .hero{background-color:#2c2421;background-image:linear-gradient(rgba(38,31,30,.42),rgba(38,31,30,.64)), url('cover.jpg');background-size:cover;background-position:center;border-radius:4px;padding:88px 40px;text-align:center;color:var(--areia);box-shadow:var(--sombra);position:relative;overflow:hidden}
   .hero .kicker{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--ouro);position:relative;z-index:1;margin-bottom:16px}
   .hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.04;position:relative;z-index:1;letter-spacing:.5px}
   .hero .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:21px;color:var(--areia);position:relative;z-index:1;margin-top:6px;opacity:.92}
   .hero p{position:relative;z-index:1;margin:20px auto 0;max-width:460px;font-weight:300;font-size:16px;color:#d8d1c6}
   .hero .start{margin-top:34px;position:relative;z-index:1;background:var(--areia);color:var(--escuro);border:none;padding:15px 42px;border-radius:3px;font-family:'Jost';font-weight:500;font-size:15px;letter-spacing:1px;cursor:pointer;transition:.25s}
   .hero .start:hover{transform:translateY(-2px);background:#fff}
-
-  /* PROGRESS */
   .progress-wrap{margin:34px 4px 8px;display:none}
   .progress-meta{display:flex;justify-content:space-between;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--oliva);margin-bottom:10px}
   .bar{height:5px;background:var(--linha);border-radius:10px;overflow:hidden}
-  .bar > span{display:block;height:100%;width:25%;background:linear-gradient(90deg,var(--taupe),var(--ouro));border-radius:10px;transition:width .5s ease}
-
-  /* STEPS */
+  .bar > span{display:block;height:100%;width:20%;background:linear-gradient(90deg,var(--taupe),var(--ouro));border-radius:10px;transition:width .5s ease}
   .step{display:none;animation:fade .5s ease}
   .step.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -53,13 +41,9 @@
   .q .hint{font-size:13px;color:var(--oliva);font-weight:300;margin-bottom:12px}
   .two{display:flex;gap:14px;flex-wrap:wrap}
   .two > div{flex:1;min-width:150px}
-  input[type=text],input[type=tel],input[type=number],textarea,select{
-    width:100%;font-family:'Jost';font-size:15px;color:var(--escuro);background:var(--offwhite);
-    border:1px solid var(--linha);border-radius:3px;padding:13px 15px;transition:.2s}
+  input[type=text],input[type=tel],input[type=number],textarea,select{width:100%;font-family:'Jost';font-size:15px;color:var(--escuro);background:var(--offwhite);border:1px solid var(--linha);border-radius:3px;padding:13px 15px;transition:.2s}
   textarea{min-height:88px;resize:vertical}
   input:focus,textarea:focus,select:focus{outline:none;border-color:var(--taupe);background:#fff;box-shadow:0 0 0 3px rgba(173,156,140,.18)}
-
-  /* chips */
   .opts{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px}
   .opts label{position:relative;cursor:pointer;font-size:14px;font-weight:400;padding:10px 16px;border:1px solid var(--linha);border-radius:3px;background:var(--offwhite);transition:.18s;user-select:none}
   .opts input{position:absolute;opacity:0;inset:0;cursor:pointer}
@@ -67,9 +51,6 @@
   .opts label:has(input:checked){background:var(--oliva);border-color:var(--oliva);color:#fff}
   .opts-stack{flex-direction:column;gap:8px}
   .opts-stack label{width:100%}
-  .pill-note{font-size:12px;color:var(--ouro);margin-top:8px;display:block}
-
-  /* uploads */
   .upload{display:block;border:1.5px dashed var(--taupe);border-radius:4px;background:var(--offwhite);padding:24px 18px;text-align:center;cursor:pointer;transition:.2s;margin-top:6px}
   .upload:hover{background:#fff;border-color:var(--ouro)}
   .upload .ic{font-size:24px;line-height:1}
@@ -77,29 +58,18 @@
   .upload .s{font-size:12px;color:var(--oliva);margin-top:3px}
   .upload input{display:none}
   .filelist{font-size:12px;color:var(--oliva);margin-top:8px;text-align:left}
-
-  /* lookbook */
   #lookbook{margin-top:6px}
   .lb-fam{margin-top:22px}
   .lb-fam:first-child{margin-top:6px}
   .lb-fam .fam-t{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--escuro);border-bottom:1px solid var(--linha);padding-bottom:6px}
   .lb-fam .fam-s{font-size:12px;color:var(--ouro);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
   .lb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-  .lb-cell{position:relative;cursor:pointer;overflow:hidden;border:1px solid var(--linha);border-radius:3px}
-  .lb-cell img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:.3s}
+  .lb-cell{position:relative;cursor:pointer;overflow:hidden;border:1px solid var(--linha);border-radius:3px;background:var(--offwhite);aspect-ratio:3/4}
+  .lb-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:.3s}
   .lb-cell:hover img{transform:scale(1.04)}
   .lb-cell.sel{border-color:var(--oliva);box-shadow:0 0 0 2px var(--oliva)}
   .lb-cell.sel::after{content:"✓";position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:var(--oliva);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center}
   @media(max-width:560px){.lb-grid{grid-template-columns:repeat(2,1fr)}}
-
-  /* lightbox */
-  #lightbox{position:fixed;inset:0;background:rgba(38,31,30,.92);z-index:999;display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
-  #lightbox.open{display:flex}
-  #lightbox img{max-width:92%;max-height:82%;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-  #lightbox .lb-name{position:absolute;bottom:34px;left:0;right:0;text-align:center;color:var(--areia);font-family:'Cormorant Garamond',serif;font-size:22px}
-  #lightbox .lb-x{position:absolute;top:20px;right:26px;color:#fff;font-size:30px;cursor:pointer;line-height:1}
-
-  /* nav */
   .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
   .btn{font-family:'Jost';font-weight:500;font-size:15px;letter-spacing:.5px;border-radius:3px;padding:14px 34px;cursor:pointer;border:none;transition:.22s}
   .btn-back{background:transparent;border:1px solid var(--taupe);color:var(--oliva)}
@@ -108,8 +78,6 @@
   .btn-next:hover{background:#3a302b;transform:translateY(-2px)}
   .btn-send{background:linear-gradient(90deg,var(--oliva),var(--ouro));color:#fff;margin-left:auto}
   .btn-send:hover{transform:translateY(-2px)}
-
-  /* confirmation */
   #done{display:none;text-align:center;padding:70px 30px}
   #done .check{width:72px;height:72px;border-radius:8px;margin:0 auto 24px;background:linear-gradient(135deg,var(--oliva),var(--ouro));color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px}
   #done h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600}
@@ -123,7 +91,6 @@
 <body>
 <div class="wrap">
 
-  <!-- HERO -->
   <div id="hero" class="hero">
     <div class="kicker">Jéssica Marques Studio</div>
     <h1>Briefing Estratégico</h1>
@@ -133,7 +100,7 @@
   </div>
 
   <div class="progress-wrap" id="progress">
-    <div class="progress-meta"><span id="stepName">Posicionamento</span><span id="stepCount">Etapa 1 de 4</span></div>
+    <div class="progress-meta"><span id="stepName">Posicionamento</span><span id="stepCount">Etapa 1 de 5</span></div>
     <div class="bar"><span id="barFill"></span></div>
   </div>
 
@@ -141,11 +108,7 @@
 
   <!-- ETAPA 1 -->
   <section class="step" data-step="1">
-    <div class="sec-head">
-      <div class="num">01 — Posicionamento & Percepção</div>
-      <h2>Sua marca</h2>
-      <p class="desc">As imagens constroem uma percepção sobre você. Vamos mapear o que a sua precisa comunicar — e o que quer evitar.</p>
-    </div>
+    <div class="sec-head"><div class="num">01 — Posicionamento & Percepção</div><h2>Sua marca</h2><p class="desc">As imagens constroem uma percepção sobre você. Vamos mapear o que a sua precisa comunicar — e o que quer evitar.</p></div>
     <div class="card">
       <div class="q two">
         <div><label class="qlabel">Nome completo</label><input type="text" name="nome" required></div>
@@ -155,43 +118,22 @@
         <div><label class="qlabel">@ do Instagram</label><input type="text" name="instagram" placeholder="@seuperfil"></div>
         <div><label class="qlabel">Seu nicho</label><input type="text" name="nicho" placeholder="Ex: mentora, advogada..."></div>
       </div>
-      <div class="q">
-        <label class="qlabel">Estágio atual da sua marca</label>
+      <div class="q"><label class="qlabel">Estágio atual da sua marca</label>
         <div class="opts" data-single><label><input type="radio" name="estagio" value="Construindo do zero"><span>Construindo do zero</span></label><label><input type="radio" name="estagio" value="Rebranding / mudança de fase"><span>Rebranding / mudança de fase</span></label><label><input type="radio" name="estagio" value="Consolidação"><span>Consolidação</span></label><label><input type="radio" name="estagio" value="Lançamento"><span>Lançamento</span></label></div>
       </div>
-      <div class="q">
-        <label class="qlabel">Quando alguém olhar para você, o que você quer que pense ou sinta?</label>
-        <span class="hint">Responda com profundidade. Ex.: “Quero que sintam que sou segura, refinada, mas acessível.”</span>
-        <textarea name="objetivo_visual"></textarea>
-      </div>
-      <div class="q">
-        <label class="qlabel">Como você NÃO quer ser percebida?</label>
-        <div class="opts" data-group="nao_transmitir"></div>
-      </div>
-      <div class="q">
-        <label class="qlabel">Qual frase mais combina com a imagem que você quer construir?</label>
-        <div class="opts opts-stack" data-single data-group="frase"></div>
-      </div>
-      <div class="q">
-        <label class="qlabel">Qual o objetivo principal dessas fotos?</label>
-        <div class="opts" data-group="objetivo_fotos"></div>
-      </div>
+      <div class="q"><label class="qlabel">Quando alguém olhar para você, o que você quer que pense ou sinta?</label><span class="hint">Responda com profundidade. Ex.: “Quero que sintam que sou segura, refinada, mas acessível.”</span><textarea name="objetivo_visual"></textarea></div>
+      <div class="q"><label class="qlabel">Como você NÃO quer ser percebida?</label><div class="opts" data-group="nao_transmitir"></div></div>
+      <div class="q"><label class="qlabel">Qual frase mais combina com a imagem que você quer construir?</label><div class="opts opts-stack" data-single data-group="frase"></div></div>
+      <div class="q"><label class="qlabel">Qual o objetivo principal dessas fotos?</label><div class="opts" data-group="objetivo_fotos"></div></div>
     </div>
     <div class="nav"><button type="button" class="btn btn-next" onclick="next(1)">Próximo →</button></div>
   </section>
 
   <!-- ETAPA 2 -->
   <section class="step" data-step="2">
-    <div class="sec-head">
-      <div class="num">02 — Corpo & Presença</div>
-      <h2>Você real</h2>
-      <p class="desc">Para que as imagens respeitem sua aparência, seus traços e sua presença natural.</p>
-    </div>
+    <div class="sec-head"><div class="num">02 — Corpo & Presença</div><h2>Você real</h2><p class="desc">Para que as imagens respeitem sua aparência, seus traços e sua presença natural.</p></div>
     <div class="card">
-      <div class="q two">
-        <div><label class="qlabel">Altura</label><input type="text" name="altura" placeholder="Ex: 1,65 m"></div>
-        <div><label class="qlabel">Peso aproximado</label><input type="text" name="peso" placeholder="Ex: 62 kg"></div>
-      </div>
+      <div class="q two"><div><label class="qlabel">Altura</label><input type="text" name="altura" placeholder="Ex: 1,65 m"></div><div><label class="qlabel">Peso aproximado</label><input type="text" name="peso" placeholder="Ex: 62 kg"></div></div>
       <div class="q"><label class="qlabel">Como você descreveria seu corpo hoje?</label><div class="opts" data-group="corpo"></div></div>
       <div class="q"><label class="qlabel">Qual seu tom de pele?</label><span class="hint">Descreva com suas palavras.</span><textarea name="tom_pele" placeholder="Ex.: pele morena clara de fundo quente, pele negra retinta..."></textarea></div>
       <div class="q"><label class="qlabel">Como é seu cabelo atualmente?</label><span class="hint">Comprimento, textura e cor.</span><div class="opts" data-group="cabelo"></div><input type="text" name="cabelo_cor" placeholder="Cor do cabelo" style="margin-top:10px"></div>
@@ -204,18 +146,10 @@
 
   <!-- ETAPA 3 -->
   <section class="step" data-step="3">
-    <div class="sec-head">
-      <div class="num">03 — Look & Estética</div>
-      <h2>Universo visual</h2>
-      <p class="desc">A direção estética do ensaio: cores, roupas, acessórios e referências. Não para copiar — para identificar o que combina com você.</p>
-    </div>
+    <div class="sec-head"><div class="num">03 — Look & Estética</div><h2>Universo visual</h2><p class="desc">A direção estética do ensaio: cores, roupas, acessórios e referências. Não para copiar — para identificar o que combina com você.</p></div>
     <div class="card">
-      <div class="q">
-        <label class="qlabel">Qual estilo combina mais com você?</label>
-        <span class="hint">Toque nas imagens que mais combinam com você — pode escolher mais de uma.</span>
-        <div id="lookbook"></div>
-      </div>
-      <div class="q"><label class="qlabel">Quais tons você gosta ou gostaria de usar?</label><div class="opts" data-group="tons"></div><input type="text" name="tons_outro" placeholder="Outra cor que você queira e não está acima (opcional)" style="margin-top:10px"></div>
+      <div class="q"><label class="qlabel">Qual estilo combina mais com você?</label><span class="hint">Toque nas imagens que mais combinam com você — pode escolher mais de uma.</span><div id="lookbook"></div></div>
+      <div class="q"><label class="qlabel">Quais tons você gosta ou gostaria de usar?</label><div class="opts" data-group="tons"></div><input type="text" name="tons_outro" placeholder="Deixe aqui sua paleta de cores, se tiver (ou outra cor que não esteja acima)" style="margin-top:10px"></div>
       <div class="q"><label class="qlabel">Que tipo de roupa combina mais com você?</label><div class="opts" data-group="looks"></div></div>
       <div class="q"><label class="qlabel">Como você definiria seu estilo ideal?</label><div class="opts" data-group="estilo_ideal"></div></div>
       <div class="q"><label class="qlabel">Acessórios que combinam com sua imagem</label><div class="opts" data-group="acessorios"></div></div>
@@ -228,11 +162,25 @@
 
   <!-- ETAPA 4 -->
   <section class="step" data-step="4">
-    <div class="sec-head">
-      <div class="num">04 — Referências & Fotos</div>
-      <h2>Material de base</h2>
-      <p class="desc">As referências mostram o patamar visual desejado; as fotos são a base para criar suas imagens.</p>
+    <div class="sec-head"><div class="num">04 — Cenário & Ambiente</div><h2>O mundo da sua marca</h2><p class="desc">O cenário traduz a experiência que sua marca vende. Vamos definir onde e como suas imagens vivem.</p></div>
+    <div class="card">
+      <div class="q"><label class="qlabel">Quais ambientes combinam com sua marca?</label><div class="opts" data-group="ambientes"></div></div>
+      <div class="q"><label class="qlabel">Qual cenário traduz melhor a experiência que sua marca vende?</label><span class="hint">Descreva o clima/lugar que representa o que você entrega. Ex.: “um escritório claro e sofisticado”, “um ateliê acolhedor”.</span><textarea name="cenario_experiencia"></textarea></div>
+      <div class="q"><label class="qlabel">Você quer cenários mais...</label><div class="opts" data-group="cenario_estilo"></div></div>
+      <div class="q">
+        <label class="qlabel">Objetos do seu universo de marca</label>
+        <span class="hint">Itens que representam sua rotina e podem aparecer nas fotos — ex.: notebook, agenda, caneca, livros, celular, câmera, produtos, ferramentas de trabalho, flores, peças decorativas, acessórios ou objetos de atendimento. Quais você gostaria de incluir?</span>
+        <textarea name="objetos_marca" placeholder="Liste os objetos que você quer que apareçam..."></textarea>
+        <label class="upload" style="margin-top:12px"><div class="ic">⬆</div><div class="t">Enviar fotos dos objetos (opcional)</div><div class="s">Se tiver os itens, fotografe-os para usarmos nas imagens</div><input id="objetos" type="file" name="objetos" accept="image/*" multiple></label>
+        <div class="filelist" id="objetosList"></div>
+      </div>
     </div>
+    <div class="nav"><button type="button" class="btn btn-back" onclick="prev(4)">← Voltar</button><button type="button" class="btn btn-next" onclick="next(4)">Próximo →</button></div>
+  </section>
+
+  <!-- ETAPA 5 -->
+  <section class="step" data-step="5">
+    <div class="sec-head"><div class="num">05 — Referências & Fotos</div><h2>Material de base</h2><p class="desc">As referências mostram o patamar visual desejado; suas fotos são a base para criar as imagens.</p></div>
     <div class="card">
       <div class="q"><label class="qlabel">Hoje, alguma imagem ou percepção NÃO representa mais você?</label><span class="hint">Ex.: “minhas fotos parecem simples demais”, “quero parecer mais premium sem perder minha naturalidade”.</span><textarea name="nao_representa"></textarea></div>
       <div class="q">
@@ -247,7 +195,15 @@
       </div>
       <div class="q">
         <label class="qlabel">Suas fotos — total de 6</label>
-        <span class="hint">Sem efeito, naturais e de boa qualidade, de preferência já maquiada e com o cabelo como você usa. 1 sorrindo de frente · 1 rosto de frente · 1 lateral esquerda · 1 lateral direita · 1 com sorriso sutil ou “carão” · 1 de corpo inteiro.</span>
+        <span class="hint">Para um resultado impecável, siga estes cuidados:</span>
+        <ul style="margin:2px 0 12px 18px;font-size:13px;color:var(--oliva);font-weight:300;line-height:1.7">
+          <li><strong>Fundo neutro e limpo</strong> (parede clara, lisa, sem bagunça atrás).</li>
+          <li><strong>Boa iluminação</strong> — de preferência luz natural do dia, de frente para a janela. Evite sombra dura, contraluz e luz amarelada.</li>
+          <li><strong>Foto nítida</strong>, sem filtro, sem efeito e sem zoom digital.</li>
+          <li>De preferência <strong>já maquiada e com o cabelo</strong> como você usa e gosta (ou rosto limpo, se preferir).</li>
+          <li>Enquadramento na altura dos olhos, celular firme.</li>
+        </ul>
+        <span class="hint">As 6 fotos: 1 sorrindo de frente · 1 rosto de frente (neutro) · 1 lateral esquerda · 1 lateral direita · 1 com sorriso sutil ou “carão” · 1 de corpo inteiro.</span>
         <label class="upload"><div class="ic">⬆</div><div class="t">Enviar minhas 6 fotos</div><div class="s">JPG ou PNG · toque para selecionar</div><input id="fotos" type="file" name="fotos" accept="image/*" multiple></label>
         <div class="filelist" id="fotosList"></div>
       </div>
@@ -259,54 +215,46 @@
       </div>
       <div class="q"><label class="qlabel">Observações finais (opcional)</label><textarea name="observacoes" placeholder="Algo mais que eu precise saber para criar suas imagens?"></textarea></div>
     </div>
-    <div class="nav"><button type="button" class="btn btn-back" onclick="prev(4)">← Voltar</button><button type="button" class="btn btn-send" onclick="enviar()">Enviar briefing ✦</button></div>
+    <div class="nav"><button type="button" class="btn btn-back" onclick="prev(5)">← Voltar</button><button type="button" class="btn btn-send" onclick="enviar()">Enviar briefing ✦</button></div>
   </section>
 
   </form>
 
   <div class="sending" id="sending"><div class="spin"></div><p>Enviando seu briefing e gerando o diagnóstico estratégico...</p></div>
-
-  <div id="done">
-    <div class="check">✓</div>
-    <h2>Briefing recebido</h2>
-    <p>Obrigada! Suas respostas chegaram com sucesso. A partir daqui, eu cuido da direção visual da sua marca. Em breve entro em contato.</p>
-  </div>
+  <div id="done"><div class="check">✓</div><h2>Briefing recebido</h2><p>Obrigada! Suas respostas chegaram com sucesso. A partir daqui, eu cuido da direção visual da sua marca. Em breve entro em contato.</p></div>
 </div>
-
-<div id="lightbox" onclick="closeLb()"><span class="lb-x">×</span><img id="lbImg" src="" alt=""><div class="lb-name" id="lbName"></div></div>
 
 <script>
   const WEBHOOK_URL = "https://jm-briefing-server.onrender.com/webhook";
+  const IMG_V = "8";
 
   const OP = {
-    sensacoes:["Autoridade","Confiança","Sofisticação","Proximidade","Acolhimento","Presença","Atitude","Delicadeza","Criatividade","Profissionalismo","Desejo / valor percebido","Autenticidade","Elegância","Leveza","Segurança","Força","Naturalidade","Exclusividade","Modernidade"],
     nao_transmitir:["Frieza","Arrogância","Sensualidade excessiva","Infantilidade","Amadorismo","Exagero","Artificialidade","Aparência genérica","Seriedade demais","Formalidade demais","Simplicidade demais","Luxo distante da realidade","Timidez","Insegurança","Muito produzida","Muito básica"],
     frase:["Quero ser vista como uma profissional de confiança.","Quero parecer mais premium e sofisticada.","Quero transmitir autoridade sem perder a leveza.","Quero parecer mais próxima, humana e acessível.","Quero uma imagem forte, marcante e posicionada.","Quero uma imagem delicada, feminina e elegante.","Quero parecer criativa, moderna e diferente.","Quero uma imagem natural, real e sem exageros.","Quero parecer referência no meu nicho."],
     objetivo_fotos:["Fortalecer minha marca pessoal","Me posicionar como referência","Transmitir mais autoridade","Parecer mais profissional","Imagem mais premium","Conteúdos e carrosséis","Lançamentos, aulas, mentorias","Atualizar presença visual","Gerar mais conexão","Site / página de vendas"],
     corpo:["Magra","Corpo normal/real","Midsize","Plus size","Curvilínea","Mais reta","Quadril mais largo","Ombros mais largos","Seios mais evidentes","Barriga mais aparente","Braços mais cheinhos"],
-    tom_pele:["Pele clara","Pele morena","Pele bronzeada","Pele oliva","Pele negra"],
     cabelo:["Curto","Médio","Longo","Muito longo","Liso","Ondulado","Cacheado","Crespo"],
     valorizar:["Rosto","Sorriso","Olhar","Cabelo","Traços ou sinais","Corpo","Mãos","Postura","Estilo pessoal"],
     tons:["Tons neutros","Off-white","Bege","Marrom","Preto","Branco","Cinza","Nude","Tons terrosos","Rosa claro","Verde","Azul","Cores vibrantes"],
     looks:["Alfaiataria elegante","Blazer","Camisa social","Vestido","Casual chic","Minimalista","Fashion/editorial","Criativo","Feminino e delicado","Confortável e natural","Poderoso/marcante"],
     estilo_ideal:["Minimalista","Sofisticado","Natural","Elegante","Moderno","Criativo","Fashion/editorial","Feminino","Delicado","Forte/marcante","Casual chic","Profissional","Acolhedor","Luxuoso","Leve"],
     acessorios:["Brincos","Colares","Anéis","Óculos","Relógio","Bolsa","Lenço","Dourados","Prateados","Poucos acessórios","Sem acessórios"],
-    calcados:["Scarpin","Sandália de salto","Slingback","Mule","Bota","Tênis casual","Sapato baixo elegante","Calçado confortável"]
+    calcados:["Scarpin","Sandália de salto","Slingback","Mule","Bota","Tênis casual","Sapato baixo elegante","Calçado confortável"],
+    ambientes:["Estúdio claro","Escritório elegante","Café","Hotel","Casa/apartamento","Clínica/sala de atendimento","Rua urbana","Livraria","Ateliê","Natureza","Fundo neutro","Ambiente de luxo discreto"],
+    cenario_estilo:["Minimalistas","Decorados","Luxuosos","Naturais","Profissionais","Criativos","Neutros","Conceituais"]
   };
-  const stepNames = ["Posicionamento","Corpo & presença","Look & estética","Referências & fotos"];
+  const stepNames = ["Posicionamento","Corpo & presença","Look & estética","Cenário & ambiente","Referências & fotos"];
 
-  /* chips */
   document.querySelectorAll('.opts[data-group]').forEach(box=>{
     const g=box.dataset.group, single=box.hasAttribute('data-single');
     (OP[g]||[]).forEach(v=>{
       const id=g+'_'+Math.random().toString(36).slice(2,7);
       const l=document.createElement('label');
-      l.innerHTML=`<input type="${single?'radio':'checkbox'}" name="${g}" value="${v}" id="${id}"><span>${v}</span>`;
+      l.innerHTML='<input type="'+(single?'radio':'checkbox')+'" name="'+g+'" value="'+v+'" id="'+id+'"><span>'+v+'</span>';
       box.appendChild(l);
     });
   });
 
-  /* galeria de estilos — 4 looks por família, curados */
   const LB_LABELS = {1:"Sofisticação neutra",2:"Colete & alfaiataria",3:"Ombro único moderno",4:"Conforto premium",7:"Especialista moderna",8:"Presença estratégica",9:"Minimalismo elegante",11:"Presença criativa",12:"Elegância analítica",13:"Minimalismo executivo",14:"Autoridade sofisticada",16:"Autoridade elegante",17:"Conexão casual chic",18:"Acolhimento sofisticado",19:"Delicadeza premium",20:"Poder marcante",22:"Sofisticação acessível",23:"Feminilidade estratégica",26:"Impacto editorial",27:"Feminilidade refinada",29:"Leveza manteiga",30:"Modernidade azul-pó",31:"Elegância sálvia",32:"Criatividade lavanda",33:"Impacto oliva",34:"Conexão terracota",37:"Bordô assimétrico",38:"Monocromático oliva",41:"Linho natural & saia",42:"Preto acetinado",43:"Couro leve & saia",45:"Vestido preto fluido"};
   const LB_FAMS = [
     {t:"Autoridade & Presença", s:"Poder, posicionamento, referência", ids:[16,14,1,20]},
@@ -322,71 +270,61 @@
     const root=document.getElementById('lookbook'); if(!root) return;
     LB_FAMS.forEach(fam=>{
       const wrap=document.createElement('div'); wrap.className='lb-fam';
-      wrap.innerHTML=`<div class="fam-t">${fam.t}</div><div class="fam-s">${fam.s}</div>`;
+      wrap.innerHTML='<div class="fam-t">'+fam.t+'</div><div class="fam-s">'+fam.s+'</div>';
       const grid=document.createElement('div'); grid.className='lb-grid';
       fam.ids.forEach(id=>{
         const n=String(id).padStart(2,'0'); const label=LB_LABELS[id]||'';
         const cell=document.createElement('div'); cell.className='lb-cell';
-        cell.innerHTML=`<img loading="lazy" src="look${n}.jpg" alt="${label}">`;
-        cell.onclick=()=>{ if(selectedLooks.has(label)){selectedLooks.delete(label);cell.classList.remove('sel');} else {selectedLooks.add(label);cell.classList.add('sel');} };
+        const img=document.createElement('img'); img.loading='lazy'; img.alt=label;
+        img.src='look'+n+'.jpg?v='+IMG_V;
+        img.onerror=function(){ this.onerror=null; this.src='look'+n+'.jpg'; };
+        cell.appendChild(img);
+        cell.onclick=function(){ if(selectedLooks.has(label)){selectedLooks.delete(label);cell.classList.remove('sel');} else {selectedLooks.add(label);cell.classList.add('sel');} };
         grid.appendChild(cell);
       });
       wrap.appendChild(grid); root.appendChild(wrap);
     });
   })();
-  function openLb(src,name){const lb=document.getElementById('lightbox');document.getElementById('lbImg').src=src;document.getElementById('lbName').textContent=name;lb.classList.add('open');}
-  function closeLb(){document.getElementById('lightbox').classList.remove('open');}
 
-  /* até 3 */
-  document.querySelectorAll('.opts[data-max]').forEach(box=>{
-    const max=+box.dataset.max, g=box.dataset.group;
-    const counter=document.querySelector(`[data-counter="${g}"]`);
-    box.addEventListener('change',e=>{
-      const checked=box.querySelectorAll('input:checked');
-      if(checked.length>max){ e.target.checked=false; }
-      const n=box.querySelectorAll('input:checked').length;
-      if(counter) counter.textContent=`${n} de ${max} selecionadas`;
-    });
-  });
+  function bindFiles(id,listId){var el=document.getElementById(id); if(!el) return; el.addEventListener('change',function(e){document.getElementById(listId).innerHTML=[].slice.call(e.target.files).map(function(f){return '• '+f.name;}).join('<br>')||'';});}
+  bindFiles('fotos','fotosList'); bindFiles('refs','refsList'); bindFiles('objetos','objetosList');
 
-  function bindFiles(id,listId){document.getElementById(id).addEventListener('change',e=>{document.getElementById(listId).innerHTML=[...e.target.files].map(f=>'• '+f.name).join('<br>')||'';});}
-  bindFiles('fotos','fotosList'); bindFiles('refs','refsList');
-
-  let cur=1; const TOTAL=4;
+  var cur=1; const TOTAL=5;
   function show(n){
-    document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-    document.querySelector(`.step[data-step="${n}"]`).classList.add('active');
+    document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});
+    document.querySelector('.step[data-step="'+n+'"]').classList.add('active');
     document.getElementById('barFill').style.width=(n/TOTAL*100)+'%';
     document.getElementById('stepName').textContent=stepNames[n-1];
-    document.getElementById('stepCount').textContent=`Etapa ${n} de ${TOTAL}`;
+    document.getElementById('stepCount').textContent='Etapa '+n+' de '+TOTAL;
     window.scrollTo({top:0,behavior:'smooth'});
   }
   function begin(){document.getElementById('hero').style.display='none';document.getElementById('progress').style.display='block';show(1);}
-  function next(n){if(n===1){const nome=document.querySelector('[name=nome]').value.trim();if(!nome){alert('Por favor, preencha seu nome para continuar.');return;}}cur=n+1;show(cur);}
+  function next(n){if(n===1){var nome=document.querySelector('[name=nome]').value.trim();if(!nome){alert('Por favor, preencha seu nome para continuar.');return;}}cur=n+1;show(cur);}
   function prev(n){cur=n-1;show(cur);}
 
   function collect(){
-    const form=document.getElementById('briefing'); const data={};
-    form.querySelectorAll('input[type=text],input[type=tel],input[type=number],textarea').forEach(el=>{if(el.name)data[el.name]=el.value.trim();});
-    ['estagio','frase'].forEach(g=>{const s=form.querySelector(`input[name=${g}]:checked`);if(s)data[g]=s.value;});
-    ['nao_transmitir','objetivo_fotos','corpo','cabelo','valorizar','tons','looks','estilo_ideal','acessorios','calcados'].forEach(g=>{const v=[...form.querySelectorAll(`input[name=${g}]:checked`)].map(i=>i.value);if(v.length)data[g]=v;});
-    if(selectedLooks.size) data.estilo_ideal=(data.estilo_ideal||[]).concat([...selectedLooks].map(s=>'Galeria: '+s));
-    if(data.tons_outro){ data.tons=(data.tons||[]).concat('Outro: '+data.tons_outro); delete data.tons_outro; }
+    var form=document.getElementById('briefing'); var data={};
+    form.querySelectorAll('input[type=text],input[type=tel],input[type=number],textarea').forEach(function(el){if(el.name)data[el.name]=el.value.trim();});
+    ['estagio','frase'].forEach(function(g){var s=form.querySelector('input[name='+g+']:checked');if(s)data[g]=s.value;});
+    ['nao_transmitir','objetivo_fotos','corpo','cabelo','valorizar','tons','looks','estilo_ideal','acessorios','calcados','ambientes','cenario_estilo'].forEach(function(g){var v=[].slice.call(form.querySelectorAll('input[name='+g+']:checked')).map(function(i){return i.value;});if(v.length)data[g]=v;});
+    if(selectedLooks.size) data.estilo_ideal=(data.estilo_ideal||[]).concat([].slice.call(selectedLooks).map(function(s){return 'Galeria: '+s;}));
+    if(data.tons_outro){ data.tons=(data.tons||[]).concat('Paleta/Outro: '+data.tons_outro); delete data.tons_outro; }
     return data;
   }
 
   async function enviar(){
-    const nome=document.querySelector('[name=nome]').value.trim();
+    var nome=document.querySelector('[name=nome]').value.trim();
     if(!nome){alert('Por favor, preencha seu nome.');cur=1;show(1);return;}
     document.getElementById('briefing').style.display='none';
     document.getElementById('progress').style.display='none';
     document.getElementById('sending').style.display='block';
-    const fd=new FormData();
+    var fd=new FormData();
     fd.append('dados', JSON.stringify(collect()));
-    [...document.getElementById('fotos').files].forEach(f=>fd.append('fotos',f));
-    [...document.getElementById('refs').files].forEach(f=>fd.append('referencias',f));
+    [].slice.call(document.getElementById('fotos').files).forEach(function(f){fd.append('fotos',f);});
+    [].slice.call(document.getElementById('refs').files).forEach(function(f){fd.append('referencias',f);});
+    [].slice.call(document.getElementById('objetos').files).forEach(function(f){fd.append('objetos',f);});
     try{
-      const r=await fetch(WEBHOOK_URL,{method:'POST',body:fd});
+      var r=await fetch(WEBHOOK_URL,{method:'POST',body:fd});
       if(!r.ok) throw new Error('status '+r.status);
     }catch(err){
       document.getElementById('sending').style.display='none';
