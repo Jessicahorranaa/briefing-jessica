@@ -70,6 +70,10 @@
   .lb-cell.sel{border-color:var(--oliva);box-shadow:0 0 0 2px var(--oliva)}
   .lb-cell.sel::after{content:"✓";position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:var(--oliva);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center}
   @media(max-width:560px){.lb-grid{grid-template-columns:repeat(2,1fr)}}
+  .pose-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 14px}
+  .pose-cell{border:1px solid var(--linha);border-radius:3px;overflow:hidden;background:var(--offwhite)}
+  .pose-cell img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+  .pose-cell .pl{font-size:11px;color:var(--oliva);text-align:center;padding:6px 4px;font-weight:400}
   .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
   .btn{font-family:'Jost';font-weight:500;font-size:15px;letter-spacing:.5px;border-radius:3px;padding:14px 34px;cursor:pointer;border:none;transition:.22s}
   .btn-back{background:transparent;border:1px solid var(--taupe);color:var(--oliva)}
@@ -198,12 +202,20 @@
         <span class="hint">Para um resultado impecável, siga estes cuidados:</span>
         <ul style="margin:2px 0 12px 18px;font-size:13px;color:var(--oliva);font-weight:300;line-height:1.7">
           <li><strong>Fundo neutro e limpo</strong> (parede clara, lisa, sem bagunça atrás).</li>
-          <li><strong>Boa iluminação</strong> — de preferência luz natural do dia, de frente para a janela. Evite sombra dura, contraluz e luz amarelada.</li>
+          <li><strong>Boa iluminação</strong> — evite sombra dura, contraluz e luz amarelada.</li>
           <li><strong>Foto nítida</strong>, sem filtro, sem efeito e sem zoom digital.</li>
           <li>De preferência <strong>já maquiada e com o cabelo</strong> como você usa e gosta (ou rosto limpo, se preferir).</li>
           <li>Enquadramento na altura dos olhos, celular firme.</li>
         </ul>
-        <span class="hint">As 6 fotos: 1 sorrindo de frente · 1 rosto de frente (neutro) · 1 lateral esquerda · 1 lateral direita · 1 com sorriso sutil ou “carão” · 1 de corpo inteiro.</span>
+        <span class="hint">As 6 fotos, seguindo este guia de poses:</span>
+        <div class="pose-grid">
+          <div class="pose-cell"><img loading="lazy" src="pose1.jpg?v=8" alt="Sorrindo de frente"><div class="pl">1. Sorrindo de frente</div></div>
+          <div class="pose-cell"><img loading="lazy" src="pose2.jpg?v=8" alt="Rosto de frente"><div class="pl">2. Rosto de frente</div></div>
+          <div class="pose-cell"><img loading="lazy" src="pose3.jpg?v=8" alt="Lateral direita"><div class="pl">3. Lateral direita</div></div>
+          <div class="pose-cell"><img loading="lazy" src="pose4.jpg?v=8" alt="Lateral esquerda"><div class="pl">4. Lateral esquerda</div></div>
+          <div class="pose-cell"><img loading="lazy" src="pose5.jpg?v=8" alt="Sorriso sutil ou carão"><div class="pl">5. Sorriso sutil / “carão”</div></div>
+          <div class="pose-cell"><img loading="lazy" src="pose6.jpg?v=8" alt="Corpo inteiro"><div class="pl">6. Corpo inteiro</div></div>
+        </div>
         <label class="upload"><div class="ic">⬆</div><div class="t">Enviar minhas 6 fotos</div><div class="s">JPG ou PNG · toque para selecionar</div><input id="fotos" type="file" name="fotos" accept="image/*" multiple></label>
         <div class="filelist" id="fotosList"></div>
       </div>
