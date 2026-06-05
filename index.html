@@ -331,6 +331,30 @@
     return data;
   }
 
+  /* comprime imagens no navegador (reduz tamanho e acelera o envio) */
+  function compressImage(file, max, q){
+    return new Promise(function(res){
+      if(!file || !file.type || file.type.indexOf('image/')!==0) return res(file);
+      var url=URL.createObjectURL(file); var img=new Image();
+      img.onload=function(){
+        var w=img.width, h=img.height, m=Math.max(w,h);
+        if(m>max){ var s=max/m; w=Math.round(w*s); h=Math.round(h*s); }
+        var cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+        cv.getContext('2d').drawImage(img,0,0,w,h);
+        cv.toBlob(function(b){ URL.revokeObjectURL(url); res(b||file); }, 'image/jpeg', q);
+      };
+      img.onerror=function(){ URL.revokeObjectURL(url); res(file); };
+      img.src=url;
+    });
+  }
+  async function appendImgs(fd, inputId, field){
+    var files=[].slice.call(document.getElementById(inputId).files);
+    for(var i=0;i<files.length;i++){
+      var b=await compressImage(files[i], 1500, 0.8);
+      fd.append(field, b, 'img'+i+'.jpg');
+    }
+  }
+
   async function enviar(){
     var nome=document.querySelector('[name=nome]').value.trim();
     if(!nome){alert('Por favor, preencha seu nome.');cur=1;show(1);return;}
@@ -339,9 +363,9 @@
     document.getElementById('sending').style.display='block';
     var fd=new FormData();
     fd.append('dados', JSON.stringify(collect()));
-    [].slice.call(document.getElementById('fotos').files).forEach(function(f){fd.append('fotos',f);});
-    [].slice.call(document.getElementById('refs').files).forEach(function(f){fd.append('referencias',f);});
-    [].slice.call(document.getElementById('objetos').files).forEach(function(f){fd.append('objetos',f);});
+    await appendImgs(fd, 'fotos', 'fotos');
+    await appendImgs(fd, 'refs', 'referencias');
+    await appendImgs(fd, 'objetos', 'objetos');
     try{
       var r=await fetch(WEBHOOK_URL,{method:'POST',body:fd});
       if(!r.ok) throw new Error('status '+r.status);
